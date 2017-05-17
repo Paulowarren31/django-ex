@@ -13,7 +13,7 @@ import requests
 
 def index(request):
   r = requests.get('https://api.darksky.net/forecast/'+os.environ['KEY']+'/42.280826,-83.743038')
-  return render(request, 'index.html', {'weatherString': r.text})
+  return render(request, 'index.html', {'weatherString': r.text, 'key': os.environ['KEY']})
 
 def health(request):
   return HttpResponse(PageView.objects.count())
