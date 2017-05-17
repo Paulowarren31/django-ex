@@ -13,7 +13,6 @@ import requests
 
 def index(request):
   r = requests.get('https://api.darksky.net/forecast/'+os.environ['KEY']+'/42.280826,-83.743038')
-  print r.text
   return render(request, 'index.html', {'weatherString': r.text})
 
 def health(request):
