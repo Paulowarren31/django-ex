@@ -6,17 +6,15 @@ from django.http import HttpResponse
 from . import database
 from .models import PageView
 
+import requests
+
+
 # Create your views here.
 
 def index(request):
-    hostname = os.getenv('HOSTNAME', 'unknown')
-    PageView.objects.create(hostname=hostname)
-
-    return render(request, 'welcome/index.html', {
-        'hostname': hostname,
-        'database': database.info(),
-        'count': PageView.objects.count()
-    })
+  r = requests.get('https://api.darksky.net/forecast/'+os.environ['KEY']+'/42.280826,-83.743038')
+  print r.text
+  return render(request, 'index.html', {'weatherString': r.text})
 
 def health(request):
-    return HttpResponse(PageView.objects.count())
+  return HttpResponse(PageView.objects.count())
