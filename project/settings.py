@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv(
     'DJANGO_SECRET_KEY',
     # safe value used for development when DJANGO_SECRET_KEY might not be set
     '9e4@&tw46$l31)zrqe3wi+-slqm(ruvz&se0^%9#6(_w3ui!c0'
-)
+    )
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,9 +42,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'debug_toolbar',
     'welcome',
-)
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,25 +57,25 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-)
+    )
 
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/templates/'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+      'BACKEND': 'django.template.backends.django.DjangoTemplates',
+      'DIRS': [BASE_DIR + '/templates/'],
+      'APP_DIRS': True,
+      'OPTIONS': {
+        'context_processors': [
+          'django.template.context_processors.debug',
+          'django.template.context_processors.request',
+          'django.contrib.auth.context_processors.auth',
+          'django.contrib.messages.context_processors.messages',
+          ],
         },
-    },
-]
+      },
+    ]
 
 WSGI_APPLICATION = 'wsgi.application'
 
@@ -86,7 +87,7 @@ from . import database
 
 DATABASES = {
     'default': database.config()
-}
+    }
 
 
 # Internationalization
@@ -107,6 +108,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    )
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
