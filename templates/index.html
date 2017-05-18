@@ -19,12 +19,12 @@
     <tbody>
         {% for account in accounts %}
         <tr class="table-warning" id="acc-{{account.pk}}">
-            <th scope="row" colspan="8" >{{account}}</th>
+            <th scope="row" colspan="8" >{{account}} <i id="acc-i-{{account.pk}}"class="fa fa-caret-down" aria-hidden="true"></i></th>
             <td> ${{account.total|intcomma}}</td>
         </tr>
         {% for category in account.categories %}
         <tr class="table-active hidden" id="acc-{{account.pk}}-cat-{{category.pk}}-cat">
-            <td colspan="7">{{category}}</td>
+            <td colspan="7">{{category}} <i id="cat-i-{{category.pk}}"class="fa fa-caret-down" aria-hidden="true"></i></td>
             <td> ${{category.total|intcomma}}</td>
             <td></td>
         </tr>
