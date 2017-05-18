@@ -14,9 +14,8 @@ import requests
 
 def index(request):
   f = open('/usr/src/app/django-example/local/saml/key', 'r')
-  b = f.read()
   #r = requests.get('https://api.darksky.net/forecast/'+os.environ['KEY']+'/42.280826,-83.743038')
-  return render(request, 'index.html', {'weatherString': 'asd', 'key': b})
+  return render(request, 'index.html', {'weatherString': 'asd', 'key': f})
 
 def health(request):
   return HttpResponse(PageView.objects.count())
