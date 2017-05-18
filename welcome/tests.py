@@ -14,6 +14,7 @@ class PageViewModelTest(TestCase):
 
 class PageViewTest(TestCase):
     def test_index(self):
+      pass
 
 class DbEngine(TestCase):
     def setUp(self):
