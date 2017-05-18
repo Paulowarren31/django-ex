@@ -15,9 +15,10 @@ import base64
 
 def index(request):
   with open('/usr/src/app/django-example/local/saml/key', 'rb') as f:
-    string = str(base64.b64encode(f.read()), 'utf-8')
-  #r = requests.get('https://api.darksky.net/forecast/'+os.environ['KEY']+'/42.280826,-83.743038')
-  return render(request, 'index.html', {'weatherString': 'asd', 'key': string})
+    secret_key = str(base64.b64encode(f.read()), 'utf-8')
+
+  r = requests.get('https://api.darksky.net/forecast/'+secret_key+'/42.280826,-83.743038')
+  return render(request, 'index.html', {'weatherString': r.text, 'key': secret_key})
 
 def health(request):
   return HttpResponse(PageView.objects.count())
