@@ -31,3 +31,5 @@ def secret(request):
     secret_key = str(base64.b64encode(f.read()), 'utf-8')
     return render(request, 'secret.html', {'key': secret_key})
 
+def profile(request):
+  return render(request, 'index.html')

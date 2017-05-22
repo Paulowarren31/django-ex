@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'debug_toolbar',
     'welcome',
+    'djangosaml2',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -116,3 +117,88 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+SAML2_URL_PATH = '/accounts/'
+SAML2_URL_BASE = 'http://django-example-paulo-test.openshift.dsc.umich.edu/accounts/'
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'djangosaml2.backends.Saml2Backend',
+    )
+
+LOGIN_URL = '%slogin/' % SAML2_URL_PATH
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+from os import path
+import saml2
+BASEDIR = path.dirname(path.abspath(__file__))
+
+SAML_CONFIG = {
+    'xmlsec_binary': '/usr/bin/xmlsec1',
+    'entityid': '%smetadata/' % SAML2_URL_BASE,
+
+    # directory with attribute mapping
+    # 'attribute_map_dir': path.join(BASEDIR, 'attribute-maps'),
+    'name': 'Student Explorer',
+    # this block states what services we provide
+    'service': {
+      # we are just a lonely SP
+      'sp': {
+        'name': 'Student Explorer',
+        'name_id_format': ('urn:oasis:names:tc:SAML:2.0:'
+          'nameid-format:transient'),
+        'authn_requests_signed': 'true',
+        'allow_unsolicited': True,
+        'endpoints': {
+          # url and binding to the assetion consumer service view
+          # do not change the binding or service name
+          'assertion_consumer_service': [
+            ('%sacs/' % SAML2_URL_BASE,
+              saml2.BINDING_HTTP_POST),
+
+            ],
+          # url and binding to the single logout service view+
+
+          # do not change the binding or service name
+          'single_logout_service': [
+            ('%sls/' % SAML2_URL_BASE,
+              saml2.BINDING_HTTP_REDIRECT),
+            ('%sls/post' % SAML2_URL_BASE,
+              saml2.BINDING_HTTP_POST),
+
+            ],
+
+          },
+
+        # attributes that this project need to identify a user
+        'required_attributes': ['uid'],
+
+        # attributes that may be useful to have but not required
+        'optional_attributes': ['eduPersonAffiliation'],
+
+        },
+
+      },
+
+    # where the remote metadata is stored
+    'metadata': {
+      'local': [path.join(BASEDIR, 'saml/remote-metadata.xml')],
+
+      },
+
+    'debug': 1,
+    # certificate
+    'key_file': path.join(BASEDIR, 'saml/student-explorer-saml.key'),  'cert_file': path.join(BASEDIR, 'saml/student-explorer-saml.pem'),
+}
+
+SAML_CREATE_UNKNOWN_USER = True
+
+SAML_ATTRIBUTE_MAPPING = {
+    'uid': ('username', ),
+    'mail': ('email', ),
+    'givenName': ('first_name', ),
+    'sn': ('last_name', ),
+
+    }
+
