@@ -1,7 +1,7 @@
 version: '2'
 services:
   db:
-    image: postgres
+    image: sqlite3
   web:
     build: .
     volumes:
