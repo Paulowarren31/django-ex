@@ -10,3 +10,4 @@ RUN apt-get update && apt-get -y install xmlsec1
 
 ADD . /code/
 
+RUN python manage.py runserver 0.0.0.0:8000
