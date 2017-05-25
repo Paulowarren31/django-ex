@@ -46,6 +46,10 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'welcome',
     'djangosaml2',
+    'health_check',                             
+    'health_check.db',                         
+    'health_check.cache',
+    'health_check.storage',
     )
 
 MIDDLEWARE_CLASSES = (

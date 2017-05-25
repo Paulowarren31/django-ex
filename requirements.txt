@@ -5,3 +5,4 @@ psycopg2
 whitenoise==3.0
 requests
 djangosaml2
+django-health-check
