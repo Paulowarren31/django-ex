@@ -1,4 +1,4 @@
-FROM python:3
+FROM ubuntu:16.04
 ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /code
