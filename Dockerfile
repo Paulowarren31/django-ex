@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM python:2.7
 ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /code
@@ -7,7 +7,7 @@ RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/
 
-RUN apt-get update && apt-get -y install xmlsec1
+RUN apt-get update && apt-get -y install xmlsec1 python-dev
 
 RUN pip install --upgrade pip && \
       pip install -r requirements.txt

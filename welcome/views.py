@@ -13,6 +13,9 @@ import base64
 # Create your views here.
 
 def index(request):
+  return render(request, 'index.html')
+
+def table(request):
   accounts = ExpenseAccount.objects.all()
    #account.expensecategory_set.all()
 
@@ -24,7 +27,7 @@ def index(request):
       items = category.expenseitem_set.all()
       category.items = items
 
-  return render(request, 'index.html', {'accounts': accounts})
+  return render(request, 'table.html', {'accounts': accounts})
 
 def secret(request):
   with open('/usr/src/app/django-example/local/saml/key', 'rb') as f:

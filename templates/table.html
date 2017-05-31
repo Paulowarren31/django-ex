@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load staticfiles %}
+{% block index %}
+<table class="table table-bordered table-responsive">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Expense Account</th>
+            <th>Item Description</th>
+            <th>Charge Codes</th>
+            <th>Rate</th>
+            <th>Avg Monthly Units Billed</th>
+            <th>Billed Units</th>
+            <th>Item Total</th>
+            <th>Item Group Total</th>
+            <th>Account Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for account in accounts %}
+        <tr class="table-warning" id="acc-{{account.pk}}">
+            <th scope="row" colspan="8" >{{account}} <i id="acc-i-{{account.pk}}"class="fa fa-caret-down" aria-hidden="true"></i></th>
+            <td> ${{account.total|intcomma}}</td>
+        </tr>
+        {% for category in account.categories %}
+        <tr class="table-active hidden" id="acc-{{account.pk}}-cat-{{category.pk}}-cat">
+            <td colspan="7">{{category}} <i id="cat-i-{{category.pk}}"class="fa fa-caret-down" aria-hidden="true"></i></td>
+            <td> ${{category.total|intcomma}}</td>
+            <td></td>
+        </tr>
+        {% for item in category.items %}
+        <tr class="hidden" id="acc-{{account.pk}}-cat-{{category.pk}}-i-{{item.pk}}-i">
+            <td></td>
+            <td> {{item.description}}</td>
+            <td> {{item.charge_codes}}</td>
+            <td> {{item.rate}}</td>
+            <td> {{item.avg_monthly_units_billed}}</td>
+            <td> {{item.billed_units}}</td>
+            <td> ${{item.total|intcomma}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}
