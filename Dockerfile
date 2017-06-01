@@ -12,7 +12,7 @@ RUN apt-get update && apt-get -y install xmlsec1 python-dev
 RUN pip install --upgrade pip && \
       pip install -r requirements.txt
 
-EXPOSE 8000
+EXPOSE 8080
 
 ADD . /code/
 
