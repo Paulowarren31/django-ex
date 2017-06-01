@@ -126,7 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SAML2_URL_PATH = '/accounts/'
-SAML2_URL_BASE = 'http://django-example2-paulo-test.openshift.dsc.umich.edu/accounts/'
+SAML2_URL_BASE = 'http://django-example-paulo-test.openshift.dsc.umich.edu/accounts/'
 
 
 AUTHENTICATION_BACKENDS = (

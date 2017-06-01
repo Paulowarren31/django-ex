@@ -2,6 +2,7 @@ import os
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 from . import database
 from .models import PageView, ExpenseAccount
@@ -12,6 +13,7 @@ import base64
 
 # Create your views here.
 
+@login_required(login_url='/accounts/login')
 def index(request):
   return render(request, 'index.html')
 
