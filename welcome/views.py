@@ -32,7 +32,7 @@ def table(request):
   return render(request, 'table.html', {'accounts': accounts})
 
 def secret(request):
-  with open('/usr/src/app/django-example/local/saml/key', 'rb') as f:
+  with open('/usr/src/app/myapp/local/saml/secret-key', 'rb') as f:
     secret_key = str(base64.b64encode(f.read()), 'utf-8')
     return render(request, 'secret.html', {'key': secret_key})
 
