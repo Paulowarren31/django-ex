@@ -60,7 +60,9 @@ def table(request):
     else:
       account_dict[row[9]] = [row]
 
-  return render(request, 'table.html', {'rows': account_dict.iteritems()})
+  accounts = account_dict.iteritems()[1]
+
+  return render(request, 'table.html', {'rows': accounts})
 
 def secret(request):
   with open('/usr/src/app/myapp/local/saml/secret-key', 'rb') as f:
