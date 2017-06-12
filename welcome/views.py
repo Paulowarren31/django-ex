@@ -42,13 +42,13 @@ def index(request):
 
   return render(request, 'index.html', dic)
 
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 def table(request):
 
   conn = cx_Oracle.connect(connection_string)
   cursor = conn.cursor()
 
-  query = "select * from um_ecomm_dept_units_rept where deptid='926200' and month BETWEEN 06 and 12 and calendar_yr between 2015 and 2016"
+  query = "select * from um_ecomm_dept_units_rept where deptid='926200' and month='01' and calendar_yr='2015'"
 
   rows = cursor.execute(query).fetchall()
 
@@ -60,9 +60,20 @@ def table(request):
     else:
       account_dict[row[9]] = [row]
 
-  accounts = account_dict.iteritems()[1]
+  accounts = account_dict.iteritems()
+  final = {}
 
-  return render(request, 'table.html', {'rows': accounts})
+  for account in accounts:
+    group_dict = {}
+    for row in account[1]:
+      if row[11] in group_dict:
+        group_dict[row[11]].append(row)
+      else:
+        group_dict[row[11]] = [row]
+    final[account[0]] = group_dict
+
+  print final
+  return render(request, 'table.html', {'rows': final})
 
 def secret(request):
   with open('/usr/src/app/myapp/local/saml/secret-key', 'rb') as f:
