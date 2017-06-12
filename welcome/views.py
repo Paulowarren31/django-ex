@@ -23,15 +23,19 @@ def index(request):
 
   query = "select * from um_ecomm_dept_units_rept where ROWID IN ( SELECT MAX(ROWID) FROM um_ecomm_dept_units_rept GROUP BY dept_grp_vp_area)"
 
-  vp_area = cursor.execute(query)
+  vp_area = cursor.execute(query).fetchall()
 
   dic['vp'] = vp_area
 
   query = "select * from um_ecomm_dept_units_rept where ROWID IN ( SELECT MAX(ROWID) FROM um_ecomm_dept_units_rept GROUP BY dept_bud_seq)"
 
-  budget_seq = cursor.execute(query)
+  budget_seq = cursor.execute(query).fetchall()
 
   dic['bud_seq'] = budget_seq
+
+  print dic
+
+  conn.close()
 
   return render(request, 'index.html', dic)
 
