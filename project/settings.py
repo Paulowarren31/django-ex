@@ -92,10 +92,15 @@ from . import database
 
 DATABASES = {
     'default': {
+      #'ENGINE': 'django.db.backends.oracle',
+      #'NAME': 'pinntst.dsc.umich.edu:1521/pinndev.world',
+      #'USER': 'paulowar',
+      #'PASSWORD': 'Pw6517nP',
+      #'schemas': ['PAULOWAR', 'PINN_CUSTOM'],
       'ENGINE': 'django.db.backends.sqlite3',
       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-      }
     }
+  }
 
 
 # Internationalization
