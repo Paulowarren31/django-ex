@@ -46,11 +46,9 @@
             </label>
 
             <select class="form-control mb-3">
-                <option>481054</option>
-                <option>481054</option>
-                <option>481054</option>
-                <option>481054</option>
-                <option>481054</option>
+                {% for row in cursor %}
+                    <option>{{row}}</option>
+                {% endfor %}
             </select>
         </div>
         <div class"form-group">

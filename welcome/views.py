@@ -8,13 +8,21 @@ from . import database
 
 import requests
 import base64
+import cx_Oracle #oracle DB lib
 
+connection_string = 'paulowar/Pw6517nP@pinntst.dsc.umich.edu:1521/pinndev.world'
 
 # Create your views here.
 
 @login_required(login_url='/accounts/login')
 def index(request):
-  return render(request, 'index.html')
+  conn = cx_Oracle.connect(connection_string)
+  cursor = conn.cursor()
+  query = "select * from um_ecomm_dept_units_rept where ROWID IN ( SELECT MAX(ROWID) FROM um_ecomm_dept_units_rept GROUP BY dept_bud_seq)"
+
+  cusor.execute(query)
+
+  return render(request, 'index.html', {'cursor': cursor})
 
 #def table(request):
 #  accounts = ExpenseAccount.objects.all()
