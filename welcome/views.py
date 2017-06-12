@@ -20,7 +20,7 @@ def index(request):
   cursor = conn.cursor()
   query = "select * from um_ecomm_dept_units_rept where ROWID IN ( SELECT MAX(ROWID) FROM um_ecomm_dept_units_rept GROUP BY dept_bud_seq)"
 
-  cusor.execute(query)
+  cursor.execute(query)
 
   return render(request, 'index.html', {'cursor': cursor})
 
