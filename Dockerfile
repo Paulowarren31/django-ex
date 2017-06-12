@@ -8,7 +8,7 @@ COPY instantclient/* /tmp/
 
 RUN \
     apt-get update && mkdir -p /opt/oracle && \
-    apt-get -y install unzip && \
+    apt-get -y install unzip && apt-get -y install libaio1 && \
     unzip "/tmp/instantclient*.zip" -d /opt/oracle && \
     ln -s $ORACLE_HOME/libclntsh.so.12.1 $ORACLE_HOME/libclntsh.so && \
     pip install cx_Oracle && \
