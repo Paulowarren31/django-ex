@@ -46,8 +46,8 @@
             </label>
 
             <select class="form-control mb-3">
-                {% for row in cursor %}
-                    <option>{{row.17}}</option>
+                {% for row in bud_seq %}
+                <option value="{{row.17}}">{{row.17}}</option>
                 {% endfor %}
             </select>
         </div>
@@ -59,11 +59,9 @@
             </label>
 
             <select class="form-control">
-                <option>481054</option>
-                <option>481054</option>
-                <option>481054</option>
-                <option>481054</option>
-                <option>481054</option>
+                {% for row in vp %}
+                <option>{{row.7}}</option>
+                {% endfor %}
             </select>
         </div>
         <hr>
