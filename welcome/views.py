@@ -42,19 +42,16 @@ def index(request):
 
   return render(request, 'index.html', dic)
 
-#def table(request):
-#  accounts = ExpenseAccount.objects.all()
-#   #account.expensecategory_set.all()
-#
-#  for account in accounts:
-#    categories = account.expensecategory_set.all()
-#    account.categories = categories
-#
-#    for category in categories:
-#      items = category.expenseitem_set.all()
-#      category.items = items
-#
-#  return render(request, 'table.html', {'accounts': accounts})
+def table(request):
+
+  conn = cx_Oracle.connect(connection_string)
+  cursor = conn.cursor()
+
+  query = "select * from um_ecomm_dept_units_rept where deptid='926200' and month BETWEEN 06 and 12 and calendar_yr between 2015 and 2016"
+
+  rows = cursor.execute(query).fetchall()
+
+  return render(request, 'table.html', {'rows': rows})
 
 def secret(request):
   with open('/usr/src/app/myapp/local/saml/secret-key', 'rb') as f:
