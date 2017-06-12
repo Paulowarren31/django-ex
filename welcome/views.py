@@ -42,6 +42,7 @@ def index(request):
 
   return render(request, 'index.html', dic)
 
+@login_required(login_url='/accounts/login')
 def table(request):
 
   conn = cx_Oracle.connect(connection_string)
@@ -51,7 +52,15 @@ def table(request):
 
   rows = cursor.execute(query).fetchall()
 
-  return render(request, 'table.html', {'rows': rows})
+  account_dict = {}
+
+  for row in rows:
+    if row[9] in account_dict:
+      account_dict[row[9]].append(row)
+    else:
+      account_dict[row[9]] = [row]
+
+  return render(request, 'table.html', {'rows': account_dict.iteritems()})
 
 def secret(request):
   with open('/usr/src/app/myapp/local/saml/secret-key', 'rb') as f:
