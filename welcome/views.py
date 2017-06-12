@@ -52,6 +52,7 @@ def table(request):
 
   rows = cursor.execute(query).fetchall()
 
+  #dictionary that maps account #s to a list of items that belong to that account
   account_dict = {}
 
   for row in rows:
@@ -61,18 +62,25 @@ def table(request):
       account_dict[row[9]] = [row]
 
   accounts = account_dict.iteritems()
+  
   final = {}
 
   for account in accounts:
+    #dictionary that maps group names to a list of items that belongs to that group
     group_dict = {}
+    account_total = 0
     for row in account[1]:
       if row[11] in group_dict:
-        group_dict[row[11]].append(row)
+        group_dict[row[11]]['items'].append(row)
+        group_dict[row[11]]['total'] += float(row[16])
       else:
-        group_dict[row[11]] = [row]
-    final[account[0]] = group_dict
+        group_dict[row[11]] = {'items': [row], 'total': float(row[16])}
 
-  print final
+      account_total += float(row[16])
+
+
+    final[account[0]] = {'a_total': account_total, 'group_dict': group_dict}
+
   return render(request, 'table.html', {'rows': final})
 
 def secret(request):

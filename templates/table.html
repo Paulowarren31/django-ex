@@ -19,24 +19,24 @@
     <tbody>
         {% for account in rows.items %}
         <tr class="table-warning">
-            <th scope="row" colspan="8">{{account.1.items.0.1.0.10}} - ({{account.0}})</th>
-            <td>Account Total</td>
+            <th scope="row" colspan="8">{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</th>
+            <td>{{account.1.a_total|floatformat:2|intcomma}}</td>
         </tr>
-        {% for group in account.1.items %}
+        {% for group in account.1.group_dict.items %}
         <tr><td>{{group.0}} - </td>
             <th scope="row" colspan="6"></th>
-            <td>group total</td>
+            <td>{{group.1.total|floatformat:2|intcomma}}</td>
         
         </tr>
-        {% for item in group.1 %}
+        {% for item in group.1.items %}
         <tr>
             <td></td>
             <td>{{item.13}}</td>
-            <td>{{item.12}}</td>
-            <td>${{item.14}}</td>
+            <td>{{item.12|default_if_none:""}}</td>
+            <td>${{item.14|default_if_none:""|floatformat:2|intcomma}}</td>
             <td></td>
-            <td>{{item.15}}</td>
-            <td>${{item.16}}</td>
+            <td>{{item.15|default_if_none:""|floatformat:0}}</td>
+            <td>${{item.16|default_if_none:""|floatformat:2|intcomma}}</td>
         </tr>
         {% endfor %}
 
